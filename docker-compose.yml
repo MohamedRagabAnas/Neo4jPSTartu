@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  neo:
+    image: neo4j:3.5.31-community
+    ports:
+        - 7474:7474
+        - 7687:7687
+    restart: always
+    environment:
+      # - NEO4J_AUTH='neo4j/engmohamed'
+      - NEO4J_AUTH=none
+    volumes:
+      - ./neo4j/data:/data
+      - ./neo4j/conf:/conf
+  notebook:
+    build: notebook/
+    ports:
+      - 8888:8888
+    volumes:
+       - ./:/home/jovyan/work/data
+    environment:
+      - GRANT_SUDO=yes
